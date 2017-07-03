@@ -4,10 +4,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import play.mvc.*;
 import services.Restaurant;
-import sevices.EatingUtilityService;
+import services.EatingUtilityService;
 import javax.inject.*;
 import play.Environment;
-import com.google.inject.AbstractModule;
+
 
 /**
  * This controller contains an action to handle HTTP requests
