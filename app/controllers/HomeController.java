@@ -16,7 +16,7 @@ import play.Environment;
 @Singleton
 public class HomeController extends Controller {
     
-    private final EatingUtilityService eatingUtilityService;
+    private EatingUtilityService eatingUtilityService;
     private final Environment env;
     
     @Inject
@@ -26,10 +26,10 @@ public class HomeController extends Controller {
         String filePath = env.getFile("input.txt").getAbsolutePath();
         try {
             restaurantMenu.readMenuFromFile(filePath);
-            eatingUtilityService = new EatingUtilityService(restaurantMenu);
         } catch(Exception e) {
           e.printStackTrace();
         }
+        eatingUtilityService = new EatingUtilityService(restaurantMenu);
     }
 
     public Result index() {

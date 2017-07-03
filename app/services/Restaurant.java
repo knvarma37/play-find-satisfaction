@@ -22,9 +22,11 @@ public class Restaurant {
     private final Pattern menuPattern = Pattern.compile("(\\d+)\\s+(\\d+)");
     private int menuCount;
     private final List<MenuItem> menuItems = new ArrayList<MenuItem>();
+    private boolean initCompleted = true;
 
     public void readMenuFromFile(String filePath) throws FileNotFoundException, InvalidInputException{
         if (isNotValidFile(filePath)) {
+            initCompleted = false;
             return;
         }
         try {
@@ -41,6 +43,7 @@ public class Restaurant {
                         int timeTake = Integer.parseInt(matcher.group(2));
                         menuItems.add(new MenuItem(satisfaction, timeTake));
                     } catch (NumberFormatException e) {
+                        initCompleted = false;
                         // Ignoring invalid line.
                         e.printStackTrace();
                         throw new InvalidInputException("Input file has invalid content");
@@ -48,6 +51,7 @@ public class Restaurant {
                 }
             }
         } catch (Exception e) {
+            initCompleted = false;
             e.printStackTrace();
         }
     }
@@ -81,6 +85,9 @@ public class Restaurant {
         return false;
     }
 
+    public boolean isInitSuccess() {
+        return initCompleted;
+    }
 
     public int getMenuCount() {
         return menuCount;

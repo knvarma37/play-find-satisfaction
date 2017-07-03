@@ -18,6 +18,9 @@ public class EatingUtilityService {
      * @return
      */
     public Integer findMaxSatisfaction(int customerTimeLimit) {
+        if (!restaurantMenu.isInitSuccess()) {
+            return -1;
+        }
         int index, timeLimit;
         int maxSatisfactionArray[][] = new int[restaurantMenu.getMenuCount() + 1][customerTimeLimit + 1];
         for (index = 0; index <= restaurantMenu.getMenuCount(); index++) {
