@@ -26,7 +26,7 @@ public class HomeController extends Controller {
     public HomeController(final Environment env) {
         this.env = env;
         Restaurant restaurantMenu = new Restaurant();
-        String filePath = env.getFile("input.txt").getAbsolutePath();
+        String filePath = env.getFile("resources/input.txt").getAbsolutePath();
         try {
             restaurantMenu.readMenuFromFile(filePath);
         } catch(FileNotFoundException | InvalidInputException e) {

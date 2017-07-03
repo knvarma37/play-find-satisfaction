@@ -1,3 +1,5 @@
+import com.typesafe.sbt.packager.MappingsHelper._
+
 name := """play-java-rest-api-example"""
 
 version := "2.6.x"
@@ -27,3 +29,5 @@ libraryDependencies += "io.gatling" % "gatling-test-framework" % "2.2.2" % Test
 PlayKeys.externalizeResources := false
 
 testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
+
+mappings in Universal ++= directory(baseDirectory.value / "public")
