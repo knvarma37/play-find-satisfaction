@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import play.mvc.*;
@@ -7,6 +8,8 @@ import services.Restaurant;
 import services.EatingUtilityService;
 import javax.inject.*;
 import play.Environment;
+import java.io.FileNotFoundException;
+import services.exceptions.InvalidInputException;
 
 
 /**
@@ -26,8 +29,8 @@ public class HomeController extends Controller {
         String filePath = env.getFile("input.txt").getAbsolutePath();
         try {
             restaurantMenu.readMenuFromFile(filePath);
-        } catch(Exception e) {
-          e.printStackTrace();
+        } catch(FileNotFoundException || InvalidInputException e) {
+            e.printStackTrace();
         }
         eatingUtilityService = new EatingUtilityService(restaurantMenu);
     }
