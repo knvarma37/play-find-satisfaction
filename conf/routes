@@ -1,5 +1,5 @@
 GET     /                           controllers.HomeController.index
-GET    /find-satisfaction          controllers.HomeController.findSatisfaction(timelimit::Integer)
+GET    /find-satisfaction          controllers.HomeController.findSatisfaction(timelimit:Integer)
 
 
 GET  /assets/*file        controllers.Assets.at(path="/public", file)
