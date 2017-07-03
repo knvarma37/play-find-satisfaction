@@ -20,7 +20,7 @@ import com.google.inject.AbstractModule;
 public class Restaurant {
 
     private final Pattern menuPattern = Pattern.compile("(\\d+)\\s+(\\d+)");
-    private int menuCount;
+    private int menuCount = -1;
     private final List<MenuItem> menuItems = new ArrayList<MenuItem>();
     private boolean initCompleted = true;
 
