@@ -37,7 +37,8 @@ public class HomeController extends Controller {
     }
     
     public Result findSatisfaction(Integer timelimit) {
-        return ok(eatingUtilityService.findMaxSatisfaction(timelimit));
+        Integer value = eatingUtilityService.findMaxSatisfaction(timelimit);
+        return ok(String.valueOf(value));
     }
 
 }
