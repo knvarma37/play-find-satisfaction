@@ -1,0 +1,3 @@
+GET     /                           controllers.HomeController.index
+GET    /find-satisfaction          controllers.HomeController.findSatisfaction(timelimit::Integer)
+
