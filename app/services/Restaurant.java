@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import com.google.inject.AbstractModule;
+
 
 /**
  * Created by knvarma
@@ -21,7 +23,7 @@ public class Restaurant {
     private int menuCount;
     private final List<MenuItem> menuItems = new ArrayList<MenuItem>();
 
-    public void readMenuFromFile(String filePath) throws FileNotFoundException, InvalidInputException {
+    public void readMenuFromFile(String filePath) throws FileNotFoundException, InvalidInputException{
         if (isNotValidFile(filePath)) {
             return;
         }

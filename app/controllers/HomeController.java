@@ -23,8 +23,12 @@ public class HomeController extends Controller {
         this.env = env;
         Restaurant restaurantMenu = new Restaurant();
         String filePath = env.getFile("input.txt").getAbsolutePath();
-        restaurantMenu.readMenuFromFile(filePath);
-        eatingUtilityService = new EatingUtilityService(restaurantMenu);
+        try {
+            restaurantMenu.readMenuFromFile(filePath);
+            eatingUtilityService = new EatingUtilityService(restaurantMenu);
+        } catch(Exception e) {
+          e.printStackTrace();
+        }
     }
 
     public Result index() {
