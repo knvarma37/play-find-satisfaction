@@ -1,6 +1,6 @@
-package sevices;
+package services;
 
-import exceptions.InvalidInputException;
+import services.exceptions.InvalidInputException;
 
 import java.io.BufferedReader;
 import java.io.File;
