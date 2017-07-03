@@ -29,7 +29,7 @@ public class HomeController extends Controller {
         String filePath = env.getFile("input.txt").getAbsolutePath();
         try {
             restaurantMenu.readMenuFromFile(filePath);
-        } catch(FileNotFoundException || InvalidInputException e) {
+        } catch(FileNotFoundException | InvalidInputException e) {
             e.printStackTrace();
         }
         eatingUtilityService = new EatingUtilityService(restaurantMenu);
