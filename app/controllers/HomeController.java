@@ -7,6 +7,7 @@ import services.Restaurant;
 import sevices.EatingUtilityService;
 import javax.inject.*;
 import play.Environment;
+import com.google.inject.AbstractModule;
 
 /**
  * This controller contains an action to handle HTTP requests
