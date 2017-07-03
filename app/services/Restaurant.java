@@ -1,16 +1,16 @@
 package services;
 
-import services.exceptions.InvalidInputException;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import com.google.inject.AbstractModule;
+
+import services.exceptions.InvalidInputException;
 
 
 /**
@@ -20,17 +20,27 @@ import com.google.inject.AbstractModule;
 public class Restaurant {
 
     private final Pattern menuPattern = Pattern.compile("(\\d+)\\s+(\\d+)");
-    private int menuCount = -1;
     private final List<MenuItem> menuItems = new ArrayList<MenuItem>();
-    private boolean initCompleted = true;
 
+    private int menuCount = -1;
+    private boolean initSuccess = true;
+
+    /**
+     * Reads the file and loads into menu items list. If failed to load, initSuccess is set to false.
+     * Later this variable will be verified before calculating max satisfaction value.
+     * @param filePath
+     * @throws FileNotFoundException
+     * @throws InvalidInputException
+     */
     public void readMenuFromFile(String filePath) throws FileNotFoundException, InvalidInputException{
         if (isNotValidFile(filePath)) {
-            initCompleted = false;
+            initSuccess = false;
             return;
         }
+        
+        BufferedReader br = null;
         try {
-            BufferedReader br = new BufferedReader(new FileReader(new File(filePath)));
+            br = new BufferedReader(new FileReader(new File(filePath)));
             String line = br.readLine();
 
             parseMenuCount(line);
@@ -43,16 +53,22 @@ public class Restaurant {
                         int timeTake = Integer.parseInt(matcher.group(2));
                         menuItems.add(new MenuItem(satisfaction, timeTake));
                     } catch (NumberFormatException e) {
-                        initCompleted = false;
-                        // Ignoring invalid line.
-                        e.printStackTrace();
+                        initSuccess = false;
                         throw new InvalidInputException("Input file has invalid content");
                     }
                 }
             }
         } catch (Exception e) {
-            initCompleted = false;
+            initSuccess = false;
             e.printStackTrace();
+        } finally {
+        	if (br != null) {
+        		try {
+        			br.close();	
+    			} catch (IOException e) {
+    				e.printStackTrace();
+    			}
+        	}
         }
     }
 
@@ -86,7 +102,7 @@ public class Restaurant {
     }
 
     public boolean isInitSuccess() {
-        return initCompleted;
+        return initSuccess;
     }
 
     public int getMenuCount() {
@@ -98,6 +114,10 @@ public class Restaurant {
     }
 
     public MenuItem getMenuAtIndex(int index) {
-        return menuItems.get(index);
+    	if (index > menuItems.size()) {
+    		return menuItems.get(index);
+    	}
+        
+    	return null;
     }
 }

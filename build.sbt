@@ -14,6 +14,10 @@ lazy val root = (project in file(".")).enablePlugins(PlayJava, GatlingPlugin).co
 
 scalaVersion in ThisBuild := "2.11.11"
 
+EclipseKeys.projectFlavor := EclipseProjectFlavor.Java
+EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses, EclipseCreateSrc.ManagedResources)
+
+
 libraryDependencies += guice
 libraryDependencies += javaJpa
 libraryDependencies += "com.h2database" % "h2" % "1.4.194"
@@ -25,6 +29,8 @@ libraryDependencies += "net.jodah" % "failsafe" % "1.0.3"
 
 libraryDependencies += "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.2.2" % Test
 libraryDependencies += "io.gatling" % "gatling-test-framework" % "2.2.2" % Test
+
+
 
 PlayKeys.externalizeResources := false
 

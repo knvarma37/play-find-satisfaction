@@ -1,44 +1,41 @@
 package controllers;
 
-import java.io.FileNotFoundException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import play.mvc.*;
-import services.Restaurant;
-import services.EatingUtilityService;
-import javax.inject.*;
-import play.api.Play;
-import java.io.FileNotFoundException;
-import services.exceptions.InvalidInputException;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import play.mvc.Controller;
+import play.mvc.Result;
+import services.EatSatisfactionService;
 
 
 /**
- * This controller contains an action to handle HTTP requests
- * to the application's home page.
+ * This controller serves Home page and finds the max satisfaction value.
  */
 @Singleton
 public class HomeController extends Controller {
     
-    private EatingUtilityService eatingUtilityService;
+    private EatSatisfactionService eatSatisfactionService;
     
     @Inject
-    public HomeController() {
-        Restaurant restaurantMenu = new Restaurant();
-        String filePath = Play.application().getFile("resources/input.txt").getAbsolutePath();
-        try {
-            restaurantMenu.readMenuFromFile(filePath);
-        } catch(FileNotFoundException | InvalidInputException e) {
-            e.printStackTrace();
-        }
-        eatingUtilityService = new EatingUtilityService(restaurantMenu);
+    public HomeController(EatSatisfactionService eatSatisfactionService) {
+		this.eatSatisfactionService = eatSatisfactionService;
     }
-
+    
+    /**
+     * This API returns home page for "/" route.
+     * @return
+     */
     public Result index() {
         return ok(views.html.index.render());
     }
     
+    /**
+     * This API returns the max satisfaction value within the time limit.
+     * @param timelimit
+     * @return
+     */
     public Result findSatisfaction(Integer timelimit) {
-        Integer value = eatingUtilityService.findMaxSatisfaction(timelimit);
+        Integer value = eatSatisfactionService.findMaxSatisfaction(timelimit);
         return ok(String.valueOf(value));
     }
 

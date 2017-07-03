@@ -1,6 +1,8 @@
 
 import com.google.inject.AbstractModule;
 
+import services.EatSatisfactionService;
+
 /**
  * This class is a Guice module that tells Guice how to bind several
  * different types. This Guice module is created when the Play
@@ -15,5 +17,6 @@ public class Module extends AbstractModule {
 
     @Override
     public void configure() {
+    	bind(EatSatisfactionService.class).asEagerSingleton();
     }
 }
