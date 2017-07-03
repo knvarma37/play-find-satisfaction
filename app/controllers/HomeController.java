@@ -7,7 +7,6 @@ import play.mvc.*;
 import services.Restaurant;
 import services.EatingUtilityService;
 import javax.inject.*;
-import play.api.Application;
 import java.io.FileNotFoundException;
 import services.exceptions.InvalidInputException;
 
@@ -22,9 +21,9 @@ public class HomeController extends Controller {
     private EatingUtilityService eatingUtilityService;
     
     @Inject
-    public HomeController(final Application application) {
+    public HomeController() {
         Restaurant restaurantMenu = new Restaurant();
-        String filePath = application.getFile("resources/input.txt").getAbsolutePath();
+        String filePath = Play.application().getFile("resources/input.txt").getAbsolutePath();
         try {
             restaurantMenu.readMenuFromFile(filePath);
         } catch(FileNotFoundException | InvalidInputException e) {
