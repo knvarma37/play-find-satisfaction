@@ -114,7 +114,7 @@ public class Restaurant {
     }
 
     public MenuItem getMenuAtIndex(int index) {
-    	if (index > menuItems.size()) {
+    	if (menuItems.size() > index) {
     		return menuItems.get(index);
     	}
         
